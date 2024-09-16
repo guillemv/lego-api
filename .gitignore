@@ -1,0 +1,4 @@
+*.pyc
+*.code-workspace
+dev/*
+code/routers/__pycache__/block.cpython-311.pyc
