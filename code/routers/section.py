@@ -42,3 +42,7 @@ async def update_section(uid: str, section: Section):
             {"uid": uid},
             {"$set": {"used": section.used, "itemuid": section.itemuid}}
         )
+
+@router.post("/")
+async def create_section(section:Section):
+    client.insert_one("sections",section)

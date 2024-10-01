@@ -5,3 +5,4 @@ pydantic_core==2.14.5
 uvicorn==0.29.0
 pymongo
 motor
+requests
