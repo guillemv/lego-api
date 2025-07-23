@@ -33,3 +33,11 @@ async def colors(id:str=None,name:str=None,bl:str=None,supracolor:str=None):
         return colors_schema(result)
 
 
+@router.get("/supracolor")
+async def supracolor():
+    result=client.find_many("colors",{})
+    supracolors=[]
+    for r in result:
+        if r["Supracolor"] not in supracolors:
+            supracolors.append(r["Supracolor"])
+    return supracolors

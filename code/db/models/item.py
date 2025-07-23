@@ -8,3 +8,4 @@ class Item(BaseModel):
     units:int
     box:str
     colorid:int
+    section:list

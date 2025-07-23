@@ -6,6 +6,7 @@ def item_schema(item) -> dict:
             "units": item["units"],
             "box": item["box"],
             "colorid": item["colorid"],
+            "section": item["section"]
             }
 
 

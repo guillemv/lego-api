@@ -20,7 +20,7 @@ async def inventory():
     return items_schema(client.find_many("inventory",{}))
 
 @router.get("/")
-async def part(id:str=None,box:str=None,color:str=None,colorid:int=None,supracolor:str=None,uid:str=None):
+async def part(id:str=None,box:str=None,color:str=None,colorid:int=None,supracolor:str=None,uid:str=None,section:str=None):
     query={}
     if id:
         query["id"]=id
@@ -34,6 +34,8 @@ async def part(id:str=None,box:str=None,color:str=None,colorid:int=None,supracol
         query["supracolor"]=supracolor
     if uid:
         query["uid"]=uid
+    if section:
+        query["section"]=section
     if query:  # Si hay condiciones en el query
         if "id" in query and len(query) == 1:  # Si solo se busca por ID
             result = client.find_one("inventory", query)
