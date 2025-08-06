@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
-#app.include_router(block.router)
 app.include_router(color.router)
 app.include_router(inventory.router)
 app.include_router(box.router)
