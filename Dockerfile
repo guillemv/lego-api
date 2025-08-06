@@ -1,10 +1,10 @@
 FROM python:3.9
 
-WORKDIR /app
+WORKDIR /
 
-COPY ./requirements.txt .
-COPY ./code/ .    
+COPY ./requirements.txt /requirements.txt
+COPY ./code /code
 
-RUN pip install -r requirements.txt
+RUN pip install -r /requirements.txt
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "code.main:app", "--host", "0.0.0.0", "--port", "80"]
