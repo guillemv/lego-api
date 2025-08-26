@@ -1,12 +1,13 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from ..db.client import Client
 from ..db.models.section import Section
 from ..db.schemas.sectionSchema import section_schema,sections_schema
+from ..deps import get_db
+
 router=APIRouter(prefix="/sections",tags=["section"],responses={404:{"message":"Not Found"}})
-client = Client("mongodb+srv://guille1987:wLww2PLk6h8dX34m@legodb.i4gbpgo.mongodb.net/", "Legodb")
 
 @router.get("/")
-async def section(containerId:str=None,used:bool=None,uid:str=None,itemuid:str=None):
+async def section(containerId:str=None,used:bool=None,uid:str=None,itemuid:str=None, db = Depends(get_db)):
     query={}
     if containerId:
         query["containerId"]=containerId
@@ -18,31 +19,29 @@ async def section(containerId:str=None,used:bool=None,uid:str=None,itemuid:str=N
         query["itemuid"]=itemuid
     if query:  # Si hay condiciones en el query
         if "id" in query and len(query) == 1:  # Si solo se busca por ID
-            result = client.find_one("sections", query)
+            result = await db.sections.find_one(query)
             return section_schema(result) if result else None
         else:
-            result = client.find_many("sections", query)
+            result = await db.sections.find(query).to_list(10000)
             return sections_schema(result)
     else:
         # Si no se pasó ningún parámetro, se devuelven todos los colores
-        result = client.find_many("sections", {})
+        result = await db.sections.find({}).to_list(10000)
         return sections_schema(result)
 
 @router.put("/{uid}")
-async def update_section(uid: str, section: Section):
+async def update_section(uid: str, section: Section, db = Depends(get_db)):
     if section.itemuid is None:
-        client.update_one(
-            "sections",
+        await db.sections.update_one(
             {"uid": uid},
             {"$unset": {"itemuid": ""}, "$set": {"used": section.used}}
         )
     else:
-        client.update_one(
-            "sections",
+        await db.sections.update_one(
             {"uid": uid},
             {"$set": {"used": section.used, "itemuid": section.itemuid}}
         )
 
 @router.post("/")
-async def create_section(section:Section):
-    client.insert_one("sections",section)
+async def create_section(section:Section, db = Depends(get_db)):
+    await db.sections.insert_one(section)
