@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 import motor.motor_asyncio
-from db.client import Client
-from db.schemas.colorSchema import colors_schema, color_schema
+from ..db.client import Client
+from ..db.schemas.colorSchema import colors_schema, color_schema
 router=APIRouter(prefix="/colors",tags=["color"],responses={404:{"message":"Not Found"}})
 client = Client("mongodb+srv://guille1987:wLww2PLk6h8dX34m@legodb.i4gbpgo.mongodb.net/", "Legodb")
 

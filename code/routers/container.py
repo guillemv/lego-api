@@ -1,8 +1,8 @@
 from fastapi import APIRouter,status,Body,HTTPException
-from db.client import Client
-from db.schemas.containerSchema import container_schema, containers_schema
-from db.models.container import Container
-import routers.section as section
+from ..db.client import Client
+from ..db.schemas.containerSchema import container_schema, containers_schema
+from ..db.models.container import Container
+from .section import Section as section
 router=APIRouter(prefix="/containers",tags=["container"],responses={404:{"message":"Not Found"}})
 client = Client("mongodb+srv://guille1987:wLww2PLk6h8dX34m@legodb.i4gbpgo.mongodb.net/", "Legodb")
 

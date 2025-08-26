@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 import motor.motor_asyncio
-from db.models.item import Item
-from db.client import Client
-from db.schemas.itemSchema import item_schema,items_schema
+from ..db.models.item import Item
+from ..db.client import Client
+from ..db.schemas.itemSchema import item_schema,items_schema
 import logging
 import sys
 router=APIRouter(prefix="/item",tags=["item"],responses={404:{"message":"Not Found"}})

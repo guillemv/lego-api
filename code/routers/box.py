@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-from db.client import Client
-from db.schemas.boxSchema import box_schema,boxes_schema
-from db.models.box import Box
-import routers.container as container
+from ..db.client import Client
+from ..db.schemas.boxSchema import box_schema,boxes_schema
+from ..db.models.box import Box
+from .container import Container as container
 router=APIRouter(prefix="/boxes",tags=["box"],responses={404:{"message":"Not Found"}})
 client = Client("mongodb+srv://guille1987:wLww2PLk6h8dX34m@legodb.i4gbpgo.mongodb.net/", "Legodb")
 

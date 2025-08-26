@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from db.client import Client
-from db.models.section import Section
-from db.schemas.sectionSchema import section_schema,sections_schema
+from ..db.client import Client
+from ..db.models.section import Section
+from ..db.schemas.sectionSchema import section_schema,sections_schema
 router=APIRouter(prefix="/sections",tags=["section"],responses={404:{"message":"Not Found"}})
 client = Client("mongodb+srv://guille1987:wLww2PLk6h8dX34m@legodb.i4gbpgo.mongodb.net/", "Legodb")
 
